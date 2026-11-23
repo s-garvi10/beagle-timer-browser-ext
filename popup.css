@@ -1,37 +1,62 @@
 :root{
-  --ink:#2b1a17; --paper:#fffaf0; --red:#d9372b; --red-dark:#a8271d; --grass:#7cc576;
+  --paper:#fffaf0; --ink:#2b1a17; --panel:#fff; --accent:#d9372b; --accent-ink:#fff; --accent-shadow:#a8271d;
+  --sky:#bfe3f5; --ground:#7cc576; --focus:#2563eb;
+}
+[data-theme="night"]{
+  --paper:#161a33; --ink:#eef0ff; --panel:#232949; --accent:#8c9bff; --accent-ink:#141833; --accent-shadow:#5563cf;
+  --sky:#1f2750; --ground:#2f4a6b; --focus:#ffd95e;
 }
 *{box-sizing:border-box}
-body{margin:0;width:280px;background:var(--paper);color:var(--ink);
-  font-family:"Chalkboard SE","Comic Neue","Comic Sans MS","Trebuchet MS",sans-serif}
-#app{padding:12px 20px 18px;text-align:center}
-.scene{border:3px solid var(--ink);border-radius:14px;overflow:hidden;line-height:0}
+body{margin:0;width:560px;background:var(--paper);color:var(--ink);
+  font-family:"Chalkboard SE","Comic Neue","Comic Sans MS","Trebuchet MS",sans-serif;transition:background .3s}
+#app{display:grid;grid-template-columns:260px 1fr;gap:18px;align-items:center;padding:16px 18px}
+.scene{border:3px solid var(--ink);border-radius:16px;overflow:hidden;line-height:0}
 .scene svg{width:100%;height:auto}
-.time{font-size:56px;font-weight:700;letter-spacing:1px;margin-top:12px;font-variant-numeric:tabular-nums}
-.caption{min-height:20px;font-size:14px;margin-bottom:10px}
-.presets{display:flex;gap:6px;justify-content:center;margin-bottom:12px}
+.sky{fill:var(--sky)} .ground{fill:var(--ground)}
+.panel{display:flex;flex-direction:column;align-items:stretch;text-align:center;min-width:0}
+.time{font-size:64px;font-weight:700;line-height:1.05;margin-top:6px;font-variant-numeric:tabular-nums}
+.caption{min-height:20px;font-size:14px;margin:2px 0 12px}
 button,input{font:inherit;color:var(--ink)}
-.presets button{width:42px;height:34px;border:2px solid var(--ink);border-radius:10px;background:#fff;cursor:pointer}
+.presets{display:flex;gap:6px;justify-content:center;margin-bottom:12px}
+.presets button{width:40px;height:34px;border:2px solid var(--ink);border-radius:10px;background:var(--panel);cursor:pointer}
 .presets button.on{background:var(--ink);color:var(--paper)}
-.custom input{width:58px;height:34px;border:2px solid var(--ink);border-radius:10px;padding:0 6px;background:#fff;text-align:center}
+.presets input{width:62px;height:34px;border:2px solid var(--ink);border-radius:10px;padding:0 6px;background:var(--panel);text-align:center}
 .actions{display:flex;gap:8px}
-.actions button{flex:1;height:42px;border:2px solid var(--ink);border-radius:12px;font-weight:700;font-size:16px;cursor:pointer;background:#fff}
-.actions .primary{background:var(--red);color:#fff;box-shadow:0 3px 0 var(--red-dark)}
-.actions .primary:active{transform:translateY(2px);box-shadow:0 1px 0 var(--red-dark)}
-button:focus-visible,input:focus-visible{outline:3px solid #2563eb;outline-offset:2px}
+.actions button{flex:1;height:42px;border:2px solid var(--ink);border-radius:12px;font-weight:700;font-size:16px;cursor:pointer;background:var(--panel)}
+.actions .primary{background:var(--accent);color:var(--accent-ink);box-shadow:0 3px 0 var(--accent-shadow)}
+.actions .primary:active{transform:translateY(2px);box-shadow:0 1px 0 var(--accent-shadow)}
+button:focus-visible,input:focus-visible,.switch input:focus-visible + .track{outline:3px solid var(--focus);outline-offset:2px}
+
+/* night mode switch */
+.switch{display:flex;align-items:center;justify-content:flex-end;gap:8px;cursor:pointer;font-size:14px}
+.switch input{position:absolute;opacity:0;width:1px;height:1px}
+.track{width:42px;height:24px;border:2px solid var(--ink);border-radius:14px;background:var(--panel);position:relative;transition:background .2s}
+.thumb{position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:var(--ink);transition:transform .2s}
+.switch input:checked + .track{background:var(--accent)}
+.switch input:checked + .track .thumb{transform:translateX(18px)}
+
+/* theme-only scenery */
+.night-only{display:none}
+[data-theme="night"] .night-only{display:inline}
+[data-theme="night"] .day-only{display:none}
+#zzz{color:var(--ink);fill:#fff}
 
 /* dog states */
-#sleepEye,#zzz,#smile{display:none}
-#tail{transform-origin:168px 54px}
-[data-state="idle"] #eyes{display:none}
-[data-state="idle"] #sleepEye,[data-state="paused"] #sleepEye{display:block}
+#sleepEyes,#happyEyes,#tongue,#zzz{display:none}
+#tail{transform-origin:156px 146px}
+#head{transform-origin:130px 130px}
+[data-state="idle"] #eyes,[data-state="paused"] #eyes{display:none}
+[data-state="idle"] #sleepEyes,[data-state="paused"] #sleepEyes{display:block}
 [data-state="idle"] #zzz{display:block}
-[data-state="paused"] #eyes{display:none}
-[data-state="running"] #tail{animation:wag .5s ease-in-out infinite alternate}
-[data-state="done"] #smile{display:block}
+[data-state="running"] #eyes{transform:translateY(2.5px)}
+[data-state="running"] #tail{animation:wag .6s ease-in-out infinite alternate}
+[data-state="running"] #head{animation:nod 3s ease-in-out infinite}
+[data-state="done"] #eyes{display:none}
+[data-state="done"] #happyEyes,[data-state="done"] #tongue{display:block}
 [data-state="done"] #tail{animation:wag .18s ease-in-out infinite alternate}
-[data-state="done"] #dog{animation:hop .5s ease-in-out infinite alternate}
+[data-state="done"] #dog,[data-state="done"] #head{animation:hop .45s ease-in-out infinite alternate}
 [data-state="running"] #presets,[data-state="paused"] #presets{display:none}
-@keyframes wag{from{transform:rotate(-14deg)}to{transform:rotate(14deg)}}
-@keyframes hop{from{transform:translateY(0)}to{transform:translateY(-8px)}}
-@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+@keyframes wag{from{transform:rotate(-12deg)}to{transform:rotate(14deg)}}
+@keyframes nod{0%,100%{transform:rotate(0)}50%{transform:rotate(3deg)}}
+@keyframes hop{from{transform:translateY(0)}to{transform:translateY(-6px)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}

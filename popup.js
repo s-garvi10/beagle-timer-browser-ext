@@ -12,14 +12,20 @@ const fmt = (ms) => {
 
 const captions = {
   idle: 'Pick a time and start.',
-  running: 'Focus. The beagle is wagging.',
+  running: 'Focus. The beagle is studying too.',
   paused: 'Paused. Resume when ready.',
   done: 'Time is up! Take a break.'
+};
+const nightCaptions = {
+  idle: 'Cap on, book open. Pick a time.',
+  running: 'Quiet hours. Keep reading.',
+  paused: 'Paused. Pillow break.',
+  done: 'Time is up! Time to rest.'
 };
 
 function render() {
   app.dataset.state = state.status;
-  captionEl.textContent = captions[state.status];
+  captionEl.textContent = (document.documentElement.dataset.theme === 'night' ? nightCaptions : captions)[state.status];
   let ms = chosenMs;
   if (state.status === 'running') ms = state.endTime - Date.now();
   else if (state.status === 'paused') ms = state.remaining;
@@ -54,7 +60,20 @@ $('custom').addEventListener('input', (e) => {
   choose(Math.min(600, Math.max(1, n)) * 60000, null);
 });
 
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  $('night').checked = theme === 'night';
+  render();
+}
+$('night').addEventListener('change', (e) => {
+  const theme = e.target.checked ? 'night' : 'day';
+  chrome.storage.local.set({ theme });
+  applyTheme(theme);
+});
+
 (async function init() {
+  const { theme } = await chrome.storage.local.get('theme');
+  applyTheme(theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day'));
   const { timer } = await chrome.storage.local.get('timer');
   if (timer) { state = timer; chosenMs = timer.duration; }
   const match = [...document.querySelectorAll('.presets button')].find((b) => +b.dataset.min * 60000 === chosenMs);
