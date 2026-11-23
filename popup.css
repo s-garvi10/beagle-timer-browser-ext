@@ -1,0 +1,37 @@
+:root{
+  --ink:#2b1a17; --paper:#fffaf0; --red:#d9372b; --red-dark:#a8271d; --grass:#7cc576;
+}
+*{box-sizing:border-box}
+body{margin:0;width:280px;background:var(--paper);color:var(--ink);
+  font-family:"Chalkboard SE","Comic Neue","Comic Sans MS","Trebuchet MS",sans-serif}
+#app{padding:12px 20px 18px;text-align:center}
+.scene{border:3px solid var(--ink);border-radius:14px;overflow:hidden;line-height:0}
+.scene svg{width:100%;height:auto}
+.time{font-size:56px;font-weight:700;letter-spacing:1px;margin-top:12px;font-variant-numeric:tabular-nums}
+.caption{min-height:20px;font-size:14px;margin-bottom:10px}
+.presets{display:flex;gap:6px;justify-content:center;margin-bottom:12px}
+button,input{font:inherit;color:var(--ink)}
+.presets button{width:42px;height:34px;border:2px solid var(--ink);border-radius:10px;background:#fff;cursor:pointer}
+.presets button.on{background:var(--ink);color:var(--paper)}
+.custom input{width:58px;height:34px;border:2px solid var(--ink);border-radius:10px;padding:0 6px;background:#fff;text-align:center}
+.actions{display:flex;gap:8px}
+.actions button{flex:1;height:42px;border:2px solid var(--ink);border-radius:12px;font-weight:700;font-size:16px;cursor:pointer;background:#fff}
+.actions .primary{background:var(--red);color:#fff;box-shadow:0 3px 0 var(--red-dark)}
+.actions .primary:active{transform:translateY(2px);box-shadow:0 1px 0 var(--red-dark)}
+button:focus-visible,input:focus-visible{outline:3px solid #2563eb;outline-offset:2px}
+
+/* dog states */
+#sleepEye,#zzz,#smile{display:none}
+#tail{transform-origin:168px 54px}
+[data-state="idle"] #eyes{display:none}
+[data-state="idle"] #sleepEye,[data-state="paused"] #sleepEye{display:block}
+[data-state="idle"] #zzz{display:block}
+[data-state="paused"] #eyes{display:none}
+[data-state="running"] #tail{animation:wag .5s ease-in-out infinite alternate}
+[data-state="done"] #smile{display:block}
+[data-state="done"] #tail{animation:wag .18s ease-in-out infinite alternate}
+[data-state="done"] #dog{animation:hop .5s ease-in-out infinite alternate}
+[data-state="running"] #presets,[data-state="paused"] #presets{display:none}
+@keyframes wag{from{transform:rotate(-14deg)}to{transform:rotate(14deg)}}
+@keyframes hop{from{transform:translateY(0)}to{transform:translateY(-8px)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}

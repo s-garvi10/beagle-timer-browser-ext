@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="popup.css">
+<title>Beagle Timer</title>
+</head>
+<body>
+<main id="app" data-state="idle">
+  <div class="scene" aria-hidden="true">
+    <svg viewBox="0 0 240 150" width="240" height="150">
+      <rect width="240" height="150" fill="#bfe3f5"/>
+      <circle cx="205" cy="28" r="14" fill="#ffe27a"/>
+      <rect y="122" width="240" height="28" fill="#7cc576"/>
+      <!-- doghouse -->
+      <rect x="70" y="84" width="100" height="42" fill="#d9372b"/>
+      <path d="M62 86 L120 52 L178 86 Z" fill="#a8271d"/>
+      <path d="M104 126 V108 a16 16 0 0 1 32 0 V126 Z" fill="#2b1a17"/>
+      <!-- dog -->
+      <g id="dog">
+        <g id="tail"><path d="M168 54 q20 -4 22 -22" stroke="#fff" stroke-width="7" stroke-linecap="round" fill="none"/></g>
+        <ellipse cx="124" cy="52" rx="26" ry="9" fill="#fff" stroke="#2b1a17" stroke-width="2.5"/>
+        <g id="head">
+          <ellipse cx="108" cy="32" rx="19" ry="17" fill="#fff" stroke="#2b1a17" stroke-width="2.5"/>
+          <path d="M92 20 q-14 4 -10 26 q8 4 14 -6 q2 -12 -4 -20Z" fill="#2b1a17"/>
+          <ellipse cx="124" cy="36" rx="11" ry="8" fill="#fff" stroke="#2b1a17" stroke-width="2.5"/>
+          <ellipse cx="133" cy="32" rx="4.5" ry="3.5" fill="#2b1a17"/>
+          <g id="eyes">
+            <circle cx="113" cy="27" r="2.6" fill="#2b1a17"/>
+          </g>
+          <path id="sleepEye" d="M109 28 q4 3 8 0" stroke="#2b1a17" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path id="smile" d="M118 42 q6 5 12 0" stroke="#2b1a17" stroke-width="2" fill="none" stroke-linecap="round"/>
+        </g>
+      </g>
+      <text id="zzz" x="140" y="22" font-size="14" fill="#2b1a17">z z z</text>
+    </svg>
+  </div>
+
+  <div class="time" id="time" role="timer" aria-live="off">25:00</div>
+  <div class="caption" id="caption">Pick a time and start.</div>
+
+  <div class="presets" id="presets">
+    <button data-min="5">5</button>
+    <button data-min="15">15</button>
+    <button data-min="25" class="on">25</button>
+    <button data-min="50">50</button>
+    <label class="custom">
+      <input id="custom" type="number" min="1" max="600" placeholder="min" aria-label="Custom minutes">
+    </label>
+  </div>
+
+  <div class="actions">
+    <button id="main" class="primary">Start</button>
+    <button id="reset">Reset</button>
+  </div>
+</main>
+<script src="popup.js"></script>
+</body>
+</html>
