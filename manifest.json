@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Beagle Timer",
+  "name": "Pup Timer",
   "version": "1.0.0",
-  "description": "A focus timer with a friendly cartoon beagle who naps on his doghouse while you work.",
+  "description": "A focus timer with a customizable cartoon puppy who studies alongside you.",
   "permissions": [
     "alarms",
     "storage",

@@ -89,3 +89,17 @@ button:focus-visible,input:focus-visible,.switch input:focus-visible + .track{ou
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;font-size:12px;font-weight:700}
 .grid2 label{display:flex;flex-direction:column;gap:2px}
 .grid2 select{height:30px;border:2px solid var(--ink);border-radius:8px;background:var(--panel);font:inherit;font-size:13px;font-weight:400}
+
+/* ---- breeds ---- */
+.e-floppy,.e-big,.e-pointy,.e-fold,.m-beagle,.m-corgi,.m-husky,.m-shiba,.m-pug,.m-dalmatian,.saddle{display:none}
+[data-breed="beagle"] .e-floppy,[data-breed="dalmatian"] .e-floppy,
+[data-breed="corgi"] .e-big,
+[data-breed="husky"] .e-pointy,[data-breed="shiba"] .e-pointy,
+[data-breed="pug"] .e-fold,
+[data-breed="beagle"] .m-beagle,[data-breed="corgi"] .m-corgi,[data-breed="husky"] .m-husky,
+[data-breed="shiba"] .m-shiba,[data-breed="pug"] .m-pug,[data-breed="dalmatian"] .m-dalmatian,
+[data-breed="beagle"] .saddle,[data-breed="corgi"] .saddle,[data-breed="husky"] .saddle{display:inline}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{height:28px;padding:0 10px;border:2px solid var(--ink);border-radius:14px;background:var(--panel);font-size:13px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.pick{flex-wrap:wrap;gap:8px 12px}

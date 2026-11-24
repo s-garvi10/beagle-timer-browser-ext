@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="popup.css">
-<title>Beagle Timer</title>
+<title>Pup Timer</title>
 </head>
 <body>
-<main id="app" data-state="idle" data-hat="none" data-glasses="none" data-neck="none" data-pillow="off" data-blanket="off" data-book="on">
+<main id="app" data-breed="beagle" data-state="idle" data-hat="none" data-glasses="none" data-neck="none" data-pillow="off" data-blanket="off" data-book="on">
   <div class="left">
   <section class="scene" aria-hidden="true">
     <svg viewBox="0 0 260 200" width="260" height="200">
-      <defs><clipPath id="headClip"><circle cx="130" cy="98" r="36"/></clipPath></defs>
+      <defs><clipPath id="headClip"><circle cx="130" cy="98" r="36"/></clipPath><clipPath id="bodyClip"><ellipse cx="130" cy="146" rx="34" ry="26"/></clipPath></defs>
       <rect class="sky" width="260" height="200"/>
       <g class="day-only">
         <circle cx="222" cy="34" r="15" fill="#ffd95e"/>
@@ -32,12 +32,15 @@
       <!-- tail -->
       <g id="tail">
         <path d="M156 146 Q176 142 172 116" stroke="#4a2c1d" stroke-width="11" fill="none" stroke-linecap="round"/>
-        <path d="M156 146 Q176 142 172 116" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <path d="M156 146 Q176 142 172 116" style="stroke:var(--face)" stroke-width="6" fill="none" stroke-linecap="round"/>
       </g>
 
       <!-- body -->
-      <ellipse cx="130" cy="146" rx="34" ry="26" fill="#fff" stroke="#4a2c1d" stroke-width="2.5"/>
-      <path d="M104 134 Q130 122 156 134 Q150 150 130 150 Q110 150 104 134Z" style="fill:var(--ear)" opacity=".9"/>
+      <ellipse cx="130" cy="146" rx="34" ry="26" style="fill:var(--face)" stroke="#4a2c1d" stroke-width="2.5"/>
+      <path class="saddle" d="M104 134 Q130 122 156 134 Q150 150 130 150 Q110 150 104 134Z" style="fill:var(--ear)" opacity=".9"/>
+      <g class="m-dalmatian" clip-path="url(#bodyClip)" style="fill:var(--patch)">
+        <circle cx="112" cy="136" r="5"/><circle cx="146" cy="130" r="6"/><circle cx="130" cy="152" r="4"/><circle cx="154" cy="152" r="3.5"/><circle cx="108" cy="154" r="3"/>
+      </g>
 
       <!-- pillow -->
       <g id="pillow" class="acc" transform="rotate(-10 72 150)">
@@ -47,17 +50,58 @@
 
       <!-- head -->
       <g id="head">
-        <ellipse cx="94" cy="106" rx="12" ry="25" transform="rotate(14 94 106)" style="fill:var(--ear)" stroke="#4a2c1d" stroke-width="2.5"/>
-        <ellipse cx="166" cy="106" rx="12" ry="25" transform="rotate(-14 166 106)" style="fill:var(--ear)" stroke="#4a2c1d" stroke-width="2.5"/>
-        <circle cx="130" cy="98" r="36" fill="#fff"/>
-        <ellipse cx="130" cy="74" rx="26" ry="15" style="fill:var(--patch)" clip-path="url(#headClip)"/>
-        <path d="M130 66 V82" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+        <g class="e-floppy" stroke="#4a2c1d" stroke-width="2.5">
+          <ellipse cx="94" cy="106" rx="12" ry="25" transform="rotate(14 94 106)" style="fill:var(--ear)"/>
+          <ellipse cx="166" cy="106" rx="12" ry="25" transform="rotate(-14 166 106)" style="fill:var(--ear)"/>
+        </g>
+        <g class="e-big" stroke="#4a2c1d" stroke-width="2.5" stroke-linejoin="round">
+          <path d="M94 80 Q82 46 98 32 Q118 42 124 66Z" style="fill:var(--ear)"/>
+          <path d="M166 80 Q178 46 162 32 Q142 42 136 66Z" style="fill:var(--ear)"/>
+          <path d="M99 66 Q95 50 101 42 Q110 48 113 62Z" fill="#f6b8a8" stroke="none"/>
+          <path d="M161 66 Q165 50 159 42 Q150 48 147 62Z" fill="#f6b8a8" stroke="none"/>
+        </g>
+        <g class="e-pointy" stroke="#4a2c1d" stroke-width="2.5" stroke-linejoin="round">
+          <path d="M97 76 Q92 48 106 38 Q122 50 124 68Z" style="fill:var(--ear)"/>
+          <path d="M163 76 Q168 48 154 38 Q138 50 136 68Z" style="fill:var(--ear)"/>
+          <path d="M102 67 Q100 53 107 47 Q115 55 116 65Z" fill="#fff" opacity=".75" stroke="none"/>
+          <path d="M158 67 Q160 53 153 47 Q145 55 144 65Z" fill="#fff" opacity=".75" stroke="none"/>
+        </g>
+        <g class="e-fold" stroke="#4a2c1d" stroke-width="2.5" stroke-linejoin="round">
+          <path d="M97 72 Q80 74 86 99 Q101 101 109 80Z" style="fill:var(--ear)"/>
+          <path d="M163 72 Q180 74 174 99 Q159 101 151 80Z" style="fill:var(--ear)"/>
+        </g>
+        <circle cx="130" cy="98" r="36" style="fill:var(--face)"/>
+        <g class="m-beagle">
+          <ellipse cx="130" cy="74" rx="26" ry="15" style="fill:var(--patch)" clip-path="url(#headClip)"/>
+          <path d="M130 66 V82" style="stroke:var(--face)" stroke-width="5" stroke-linecap="round"/>
+        </g>
+        <g class="m-corgi" clip-path="url(#headClip)">
+          <ellipse cx="130" cy="70" rx="40" ry="34" style="fill:var(--patch)"/>
+          <path d="M130 56 Q121 88 114 114 L146 114 Q139 88 130 56Z" style="fill:var(--face)"/>
+        </g>
+        <g class="m-husky" clip-path="url(#headClip)">
+          <ellipse cx="130" cy="70" rx="40" ry="24" style="fill:var(--patch)"/>
+          <path d="M130 56 Q127 82 123 100 L137 100 Q133 82 130 56Z" style="fill:var(--face)"/>
+          <circle cx="115" cy="86" r="4.2" fill="#fff"/><circle cx="145" cy="86" r="4.2" fill="#fff"/>
+        </g>
+        <g class="m-shiba" clip-path="url(#headClip)" style="fill:var(--patch)">
+          <ellipse cx="130" cy="124" rx="30" ry="22"/>
+          <ellipse cx="108" cy="111" rx="13" ry="10"/><ellipse cx="152" cy="111" rx="13" ry="10"/>
+        </g>
+        <g class="m-shiba" style="fill:var(--patch)"><ellipse cx="116" cy="87" rx="4.2" ry="3"/><ellipse cx="144" cy="87" rx="4.2" ry="3"/></g>
+        <g class="m-pug">
+          <path d="M118 77 q12 -6 24 0 M121 85 q9 -4 18 0" stroke="#b98f5e" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+          <ellipse cx="130" cy="112" rx="21" ry="16" style="fill:var(--patch)"/>
+        </g>
+        <g class="m-dalmatian" clip-path="url(#headClip)" style="fill:var(--patch)">
+          <circle cx="102" cy="84" r="4.5"/><circle cx="154" cy="78" r="5.5"/><circle cx="128" cy="68" r="3.5"/><circle cx="160" cy="102" r="3.2"/><circle cx="100" cy="106" r="3"/>
+        </g>
         <circle cx="130" cy="98" r="36" fill="none" stroke="#4a2c1d" stroke-width="2.5"/>
         <ellipse cx="106" cy="112" rx="6.5" ry="4" fill="#ff9fb2" opacity=".65"/>
         <ellipse cx="154" cy="112" rx="6.5" ry="4" fill="#ff9fb2" opacity=".65"/>
         <g id="eyes">
-          <circle cx="116" cy="99" r="6.2" fill="#2b1a17"/><circle cx="118.2" cy="96.8" r="2.2" fill="#fff"/>
-          <circle cx="144" cy="99" r="6.2" fill="#2b1a17"/><circle cx="146.2" cy="96.8" r="2.2" fill="#fff"/>
+          <circle cx="116" cy="99" r="6.2" style="fill:var(--eye)"/><circle cx="118.2" cy="96.8" r="2.2" fill="#fff"/>
+          <circle cx="144" cy="99" r="6.2" style="fill:var(--eye)"/><circle cx="146.2" cy="96.8" r="2.2" fill="#fff"/>
         </g>
         <path id="sleepEyes" d="M110 100 q6 5 12 0 M138 100 q6 5 12 0" stroke="#2b1a17" stroke-width="2.4" fill="none" stroke-linecap="round"/>
         <path id="happyEyes" d="M110 101 q6 -8 12 0 M138 101 q6 -8 12 0" stroke="#2b1a17" stroke-width="2.6" fill="none" stroke-linecap="round"/>
@@ -175,13 +219,15 @@
   </section>
 
   <section class="panel customize" id="customPanel" hidden>
-    <h2>Dress up your beagle</h2>
+    <h2>Dress up your pup</h2>
+    <div class="grp"><span class="gl">Breed</span><div class="chips" id="breedChips"></div></div>
     <div class="grp">
       <span class="gl">Coat</span>
       <div class="sws" id="coatSw"></div>
       <div class="pick">
+        <label>Base <input type="color" id="faceInput"></label>
         <label>Ears <input type="color" id="earInput"></label>
-        <label>Patch <input type="color" id="patchInput"></label>
+        <label>Marks <input type="color" id="patchInput"></label>
       </div>
     </div>
     <div class="grid2">

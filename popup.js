@@ -12,7 +12,7 @@ const fmt = (ms) => {
 
 const captions = {
   idle: 'Pick a time and start.',
-  running: 'Focus. The beagle is studying too.',
+  running: 'Focus. Your pup is studying too.',
   paused: 'Paused. Resume when ready.',
   done: 'Time is up! Take a break.'
 };
@@ -73,7 +73,16 @@ const COATS = [
 const ACC = [['Indigo', '#5b6bd6'], ['Red', '#d9372b'], ['Green', '#3fa66b'], ['Yellow', '#f2c230'], ['Pink', '#f27ba5'], ['Black', '#2f2f3a']];
 const BLANKETS = [['Pink', '#f2a6bd'], ['Sky blue', '#8ec5f0'], ['Mint', '#9fdcb8'], ['Butter', '#f6d98a']];
 const BOOKS = [['Blue', '#3b6fb6'], ['Red', '#c8453b'], ['Green', '#3f9a63'], ['Purple', '#7a5cc7']];
+const BREEDS = {
+  beagle: { name: 'Beagle', ear: '#8a4b2a', patch: '#d9a066', face: '#ffffff', eye: '#2b1a17' },
+  corgi: { name: 'Corgi', ear: '#e58f3c', patch: '#ee9f4d', face: '#ffffff', eye: '#2b1a17' },
+  husky: { name: 'Husky', ear: '#59616d', patch: '#6b7480', face: '#ffffff', eye: '#3b8fd9' },
+  shiba: { name: 'Shiba', ear: '#df7f33', patch: '#fff0da', face: '#e8913f', eye: '#2b1a17' },
+  pug: { name: 'Pug', ear: '#4a3b36', patch: '#5b4a44', face: '#e9c99b', eye: '#2b1a17' },
+  dalmatian: { name: 'Dalmatian', ear: '#2e2e33', patch: '#2e2e33', face: '#ffffff', eye: '#2b1a17' }
+};
 const DEFAULT_LOOK = {
+  breed: 'beagle', face: '#ffffff', eye: '#2b1a17',
   ear: '#8a4b2a', patch: '#d9a066', acc: '#5b6bd6', blanket: '#f2a6bd', book: '#3b6fb6',
   hat: 'auto', glasses: 'none', neck: 'none', pillow: 'night', blanketShow: 'night', bookShow: 'on'
 };
@@ -83,6 +92,9 @@ let look = { ...DEFAULT_LOOK };
 
 function applyLook() {
   const night = document.documentElement.dataset.theme === 'night';
+  app.dataset.breed = look.breed;
+  app.style.setProperty('--face', look.face);
+  app.style.setProperty('--eye', look.eye);
   app.style.setProperty('--ear', look.ear);
   app.style.setProperty('--patch', look.patch);
   app.style.setProperty('--acc', look.acc);
@@ -115,6 +127,19 @@ function makeSwatches(id, items, isPressed, onPick) {
 }
 
 function buildControls() {
+  Object.entries(BREEDS).forEach(([key, b]) => {
+    const chip = document.createElement('button');
+    chip.type = 'button';
+    chip.className = 'chip';
+    chip.textContent = b.name;
+    chip.dataset.breed = key;
+    chip.addEventListener('click', () => {
+      look = { ...look, breed: key, ear: b.ear, patch: b.patch, face: b.face, eye: b.eye };
+      saveLook();
+    });
+    $('breedChips').appendChild(chip);
+  });
+  $('faceInput').addEventListener('input', (e) => { look.face = e.target.value; saveLook(); });
   makeSwatches('coatSw', COATS, (c) => c.ear === look.ear && c.patch === look.patch, (c) => { look.ear = c.ear; look.patch = c.patch; saveLook(); });
   makeSwatches('accSw', ACC, (c) => c[1] === look.acc, (c) => { look.acc = c[1]; saveLook(); });
   makeSwatches('blanketSw', BLANKETS, (c) => c[1] === look.blanket, (c) => { look.blanket = c[1]; saveLook(); });
@@ -136,6 +161,8 @@ function buildControls() {
 function syncControls() {
   document.querySelectorAll('.sw').forEach((b) => b.setAttribute('aria-pressed', String(b._pressed())));
   Object.entries(SELECTS).forEach(([id, key]) => { $(id).value = look[key]; });
+  document.querySelectorAll('.chip').forEach((c) => c.setAttribute('aria-pressed', String(c.dataset.breed === look.breed)));
+  $('faceInput').value = look.face;
   $('earInput').value = look.ear;
   $('patchInput').value = look.patch;
 }
@@ -143,12 +170,13 @@ function syncControls() {
 function sanitizeLook(saved) {
   const out = { ...DEFAULT_LOOK };
   if (!saved || typeof saved !== 'object') return out;
-  ['ear', 'patch', 'acc', 'blanket', 'book'].forEach((k) => { if (HEX.test(saved[k])) out[k] = saved[k]; });
+  ['face', 'eye', 'ear', 'patch', 'acc', 'blanket', 'book'].forEach((k) => { if (HEX.test(saved[k])) out[k] = saved[k]; });
   const allowed = {
     hat: ['auto', 'none', 'night', 'beanie', 'party', 'grad', 'bow'], glasses: ['none', 'round', 'shades'],
     neck: ['none', 'scarf', 'bowtie', 'collar'], pillow: ['night', 'on', 'off'],
     blanketShow: ['night', 'on', 'off'], bookShow: ['on', 'off']
   };
+  if (BREEDS[saved.breed]) out.breed = saved.breed;
   Object.keys(allowed).forEach((k) => { if (allowed[k].includes(saved[k])) out[k] = saved[k]; });
   return out;
 }

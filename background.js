@@ -101,7 +101,7 @@ async function finish() {
     type: 'basic',
     iconUrl: 'icons/icon128.png',
     title: 'Time is up!',
-    message: 'Your beagle is doing a happy dance. Take a break.',
+    message: 'Your pup is doing a happy dance. Take a break.',
     silent: true
   });
   await updateBadge();
