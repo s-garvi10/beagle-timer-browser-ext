@@ -3,12 +3,27 @@
   "name": "Beagle Timer",
   "version": "1.0.0",
   "description": "A focus timer with a friendly cartoon beagle who naps on his doghouse while you work.",
-  "permissions": ["alarms", "storage", "notifications"],
+  "permissions": [
+    "alarms",
+    "storage",
+    "notifications",
+    "offscreen"
+  ],
   "action": {
     "default_title": "Beagle Timer",
     "default_popup": "popup.html",
-    "default_icon": { "16": "icons/icon16.png", "48": "icons/icon48.png", "128": "icons/icon128.png" }
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
   },
-  "background": { "service_worker": "background.js" },
-  "icons": { "16": "icons/icon16.png", "48": "icons/icon48.png", "128": "icons/icon128.png" }
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
 }

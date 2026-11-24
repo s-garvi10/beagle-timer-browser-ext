@@ -34,6 +34,28 @@ async function schedule(endTime) {
 }
 
 const MAX_MS = 600 * 60000;
+
+let creating;
+async function playSound(sound) {
+  try {
+    const { sound: enabled } = await chrome.storage.local.get('sound');
+    if (enabled === false) return;
+    const existing = await chrome.runtime.getContexts({ contextTypes: ['OFFSCREEN_DOCUMENT'] });
+    if (!existing.length) {
+      creating = creating || chrome.offscreen.createDocument({
+        url: 'offscreen.html',
+        reasons: ['AUDIO_PLAYBACK'],
+        justification: 'Play the timer start chime and finish woof'
+      });
+      await creating;
+      creating = null;
+    }
+    await chrome.runtime.sendMessage({ target: 'offscreen', sound });
+  } catch (e) {
+    creating = null;
+    console.warn('Sound failed:', e);
+  }
+}
 let queue = Promise.resolve();
 
 async function handle(msg) {
@@ -47,6 +69,7 @@ async function handle(msg) {
     const next = { status: 'running', duration: ms, endTime: now + ms, remaining: ms };
     await setState(next);
     await schedule(next.endTime);
+    playSound('chime');
   } else if (msg.type === 'pause' && t.status === 'running') {
     await chrome.alarms.clearAll();
     await setState({ ...t, status: 'paused', remaining: Math.max(0, t.endTime - now) });
@@ -78,9 +101,11 @@ async function finish() {
     type: 'basic',
     iconUrl: 'icons/icon128.png',
     title: 'Time is up!',
-    message: 'Your beagle is doing a happy dance. Take a break.'
+    message: 'Your beagle is doing a happy dance. Take a break.',
+    silent: true
   });
   await updateBadge();
+  await playSound('woof');
 }
 
 // Alarms do not survive a browser restart, so rebuild them from saved state.

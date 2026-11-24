@@ -7,7 +7,8 @@
 <title>Beagle Timer</title>
 </head>
 <body>
-<main id="app" data-state="idle">
+<main id="app" data-state="idle" data-hat="none" data-glasses="none" data-neck="none" data-pillow="off" data-blanket="off" data-book="on">
+  <div class="left">
   <section class="scene" aria-hidden="true">
     <svg viewBox="0 0 260 200" width="260" height="200">
       <defs><clipPath id="headClip"><circle cx="130" cy="98" r="36"/></clipPath></defs>
@@ -22,30 +23,34 @@
       </g>
       <rect class="ground" y="168" width="260" height="32"/>
 
-      <g class="night-only">
-        <path d="M148 128 Q192 120 194 156 L194 172 Q170 180 148 170Z" fill="#f2a6bd" stroke="#4a2c1d" stroke-width="2.5" stroke-linejoin="round"/>
+      <!-- blanket draped behind -->
+      <g id="blanket" class="acc">
+        <path d="M148 128 Q192 120 194 156 L194 172 Q170 180 148 170Z" style="fill:var(--blanket)" stroke="#4a2c1d" stroke-width="2.5" stroke-linejoin="round"/>
         <path d="M160 136 Q184 134 188 150 M158 150 Q178 150 188 164" stroke="#fff" stroke-width="3" fill="none" opacity=".7" stroke-linecap="round"/>
       </g>
 
+      <!-- tail -->
       <g id="tail">
         <path d="M156 146 Q176 142 172 116" stroke="#4a2c1d" stroke-width="11" fill="none" stroke-linecap="round"/>
         <path d="M156 146 Q176 142 172 116" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round"/>
       </g>
 
+      <!-- body -->
       <ellipse cx="130" cy="146" rx="34" ry="26" fill="#fff" stroke="#4a2c1d" stroke-width="2.5"/>
-      <path d="M104 134 Q130 122 156 134 Q150 150 130 150 Q110 150 104 134Z" fill="#9a5a34" opacity=".9"/>
-      
-      <g class="night-only" transform="rotate(-10 72 150)">
+      <path d="M104 134 Q130 122 156 134 Q150 150 130 150 Q110 150 104 134Z" style="fill:var(--ear)" opacity=".9"/>
+
+      <!-- pillow -->
+      <g id="pillow" class="acc" transform="rotate(-10 72 150)">
         <rect x="50" y="134" width="44" height="32" rx="13" fill="#cfd8ff" stroke="#4a2c1d" stroke-width="2.5"/>
         <path d="M58 146 H86 M58 154 H86" stroke="#8a97e0" stroke-width="2" stroke-linecap="round" stroke-dasharray="3 4"/>
       </g>
 
-     
+      <!-- head -->
       <g id="head">
-        <ellipse cx="94" cy="106" rx="12" ry="25" transform="rotate(14 94 106)" fill="#8a4b2a" stroke="#4a2c1d" stroke-width="2.5"/>
-        <ellipse cx="166" cy="106" rx="12" ry="25" transform="rotate(-14 166 106)" fill="#8a4b2a" stroke="#4a2c1d" stroke-width="2.5"/>
+        <ellipse cx="94" cy="106" rx="12" ry="25" transform="rotate(14 94 106)" style="fill:var(--ear)" stroke="#4a2c1d" stroke-width="2.5"/>
+        <ellipse cx="166" cy="106" rx="12" ry="25" transform="rotate(-14 166 106)" style="fill:var(--ear)" stroke="#4a2c1d" stroke-width="2.5"/>
         <circle cx="130" cy="98" r="36" fill="#fff"/>
-        <ellipse cx="130" cy="74" rx="26" ry="15" fill="#d9a066" clip-path="url(#headClip)"/>
+        <ellipse cx="130" cy="74" rx="26" ry="15" style="fill:var(--patch)" clip-path="url(#headClip)"/>
         <path d="M130 66 V82" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
         <circle cx="130" cy="98" r="36" fill="none" stroke="#4a2c1d" stroke-width="2.5"/>
         <ellipse cx="106" cy="112" rx="6.5" ry="4" fill="#ff9fb2" opacity=".65"/>
@@ -61,32 +66,96 @@
         <path d="M130 112 V115 M122.5 116 q3.7 4 7.5 0 q3.8 4 7.5 0" stroke="#2b1a17" stroke-width="2" fill="none" stroke-linecap="round"/>
         <path id="tongue" d="M126 119 q4 8 8 0Z" fill="#ff7f96" stroke="#2b1a17" stroke-width="1.6" stroke-linejoin="round"/>
 
-        <g class="night-only">
-          <path d="M97 78 Q104 44 140 50 Q166 56 163 78 Q130 68 97 78Z" fill="#5b6bd6" stroke="#4a2c1d" stroke-width="2.5" stroke-linejoin="round"/>
+        <!-- glasses -->
+        <g id="glasses-round" class="acc" fill="#fff" fill-opacity=".25" stroke="#2b1a17" stroke-width="2.6" stroke-linecap="round">
+          <circle cx="116" cy="99" r="10.5"/><circle cx="144" cy="99" r="10.5"/>
+          <path d="M126.5 98 Q130 95 133.5 98 M105.5 97 L98 94 M154.5 97 L162 94" fill="none"/>
+        </g>
+        <g id="glasses-shades" class="acc">
+          <ellipse cx="116" cy="99" rx="11.5" ry="8.5" fill="#1d1d28" stroke="#2b1a17" stroke-width="2.5"/>
+          <ellipse cx="144" cy="99" rx="11.5" ry="8.5" fill="#1d1d28" stroke="#2b1a17" stroke-width="2.5"/>
+          <path d="M127 97 Q130 95 133 97 M104.5 96 L98 93 M155.5 96 L162 93" stroke="#2b1a17" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M110 96 l5 -2 M138 96 l5 -2" stroke="#fff" stroke-width="2" opacity=".55" stroke-linecap="round"/>
+        </g>
+
+        <!-- headwear -->
+        <g id="hat-night" class="acc">
+          <path d="M97 78 Q104 44 140 50 Q166 56 163 78 Q130 68 97 78Z" style="fill:var(--acc)" stroke="#4a2c1d" stroke-width="2.5" stroke-linejoin="round"/>
           <path d="M96 79 Q130 66 164 79" stroke="#eef0ff" stroke-width="8" fill="none" stroke-linecap="round"/>
-          <path d="M146 52 Q176 44 180 78" stroke="#5b6bd6" stroke-width="12" fill="none" stroke-linecap="round"/>
+          <path d="M146 52 Q176 44 180 78" style="stroke:var(--acc)" stroke-width="12" fill="none" stroke-linecap="round"/>
           <circle cx="180" cy="84" r="7.5" fill="#fff" stroke="#4a2c1d" stroke-width="2"/>
+        </g>
+        <g id="hat-beanie" class="acc" stroke="#4a2c1d" stroke-width="2.5" stroke-linejoin="round">
+          <path d="M97 80 Q96 48 130 47 Q164 48 163 80 Q130 71 97 80Z" style="fill:var(--acc)"/>
+          <path d="M95 81 Q130 69 165 81 L165 91 Q130 79 95 91Z" style="fill:var(--acc)"/>
+          <path d="M95 81 Q130 69 165 81 L165 91 Q130 79 95 91Z" fill="#fff" opacity=".35"/>
+          <circle cx="130" cy="45" r="8" fill="#fff" stroke-width="2"/>
+        </g>
+        <g id="hat-party" class="acc" stroke="#4a2c1d" stroke-width="2.5" stroke-linejoin="round">
+          <path d="M130 26 L106 80 Q130 70 154 80Z" style="fill:var(--acc)"/>
+          <g fill="#fff" stroke="none"><circle cx="125" cy="58" r="2.6"/><circle cx="135" cy="50" r="2.4"/><circle cx="131" cy="68" r="2.6"/><circle cx="118" cy="72" r="2.2"/></g>
+          <circle cx="130" cy="26" r="5.5" fill="#ffd95e" stroke-width="2"/>
+        </g>
+        <g id="hat-grad" class="acc" stroke="#4a2c1d" stroke-width="2.5" stroke-linejoin="round">
+          <path d="M108 76 V90 Q130 100 152 90 V76 Q130 88 108 76Z" style="fill:var(--acc)"/>
+          <path d="M90 68 L130 52 L170 68 L130 84Z" style="fill:var(--acc)"/>
+          <path d="M130 68 L166 72 V92" stroke="#f2c230" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <circle cx="130" cy="68" r="3" fill="#f2c230" stroke-width="1.5"/>
+          <circle cx="166" cy="95" r="4" fill="#f2c230" stroke-width="1.5"/>
+        </g>
+        <g id="hat-bow" class="acc" stroke="#4a2c1d" stroke-width="2.2" stroke-linejoin="round">
+          <path d="M148 64 L132 54 Q129 64 132 74Z M148 64 L164 54 Q167 64 164 74Z" style="fill:var(--acc)"/>
+          <circle cx="148" cy="64" r="5" style="fill:var(--acc)"/>
         </g>
       </g>
 
-      
+      <!-- neckwear -->
+      <g id="neck-scarf" class="acc" stroke="#4a2c1d" stroke-width="2.5" stroke-linejoin="round">
+        <path d="M146 147 L152 170 L139 172 L136 152Z" style="fill:var(--acc)"/>
+        <path d="M103 129 Q130 146 157 129 L160 141 Q130 158 100 141Z" style="fill:var(--acc)"/>
+        <path d="M114 137 L112 147 M130 142 V152 M146 137 L148 147" stroke="#fff" stroke-width="3" opacity=".6" stroke-linecap="round"/>
+      </g>
+      <g id="neck-bowtie" class="acc" stroke="#4a2c1d" stroke-width="2.2" stroke-linejoin="round">
+        <path d="M130 138 L112 127 V149Z M130 138 L148 127 V149Z" style="fill:var(--acc)"/>
+        <circle cx="130" cy="138" r="4.5" style="fill:var(--acc)"/>
+      </g>
+      <g id="neck-collar" class="acc">
+        <path d="M104 131 Q130 147 156 131" stroke="#4a2c1d" stroke-width="9" fill="none" stroke-linecap="round"/>
+        <path d="M104 131 Q130 147 156 131" style="stroke:var(--acc)" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <circle cx="130" cy="148" r="5.5" fill="#f2c230" stroke="#4a2c1d" stroke-width="2"/>
+      </g>
+
+      <!-- book -->
       <g id="book">
-        <path d="M93 148 L130 155 L167 148 V172 L130 179 L93 172Z" fill="#3b6fb6" stroke="#4a2c1d" stroke-width="2.5" stroke-linejoin="round"/>
+        <path d="M93 148 L130 155 L167 148 V172 L130 179 L93 172Z" style="fill:var(--book)" stroke="#4a2c1d" stroke-width="2.5" stroke-linejoin="round"/>
         <path d="M98 145 L130 151 V175 L98 169Z M162 145 L130 151 V175 L162 169Z" fill="#fffdf5" stroke="#4a2c1d" stroke-width="2" stroke-linejoin="round"/>
         <path d="M104 153 L124 157 M104 160 L124 164 M156 153 L136 157 M156 160 L136 164" stroke="#c9c2b0" stroke-width="2" stroke-linecap="round"/>
         <ellipse cx="100" cy="166" rx="7.5" ry="6" fill="#fff" stroke="#4a2c1d" stroke-width="2.5"/>
         <ellipse cx="160" cy="166" rx="7.5" ry="6" fill="#fff" stroke="#4a2c1d" stroke-width="2.5"/>
       </g>
+      <g id="paws-rest">
+        <ellipse cx="114" cy="169" rx="8" ry="6" fill="#fff" stroke="#4a2c1d" stroke-width="2.5"/>
+        <ellipse cx="146" cy="169" rx="8" ry="6" fill="#fff" stroke="#4a2c1d" stroke-width="2.5"/>
+      </g>
       <text id="zzz" x="38" y="78" font-size="15" fill="currentColor" font-weight="700">z z z</text>
     </svg>
   </section>
+  <button id="customBtn" class="ghost" aria-expanded="false">Customize character</button>
+  </div>
 
-  <section class="panel">
-    <label class="switch">
-      <input type="checkbox" id="night" role="switch">
-      <span class="track"><span class="thumb"></span></span>
-      <span class="lbl">Night mode</span>
-    </label>
+  <section class="panel" id="timerPanel">
+    <div class="toggles">
+      <label class="switch">
+        <input type="checkbox" id="sound" role="switch" checked>
+        <span class="track"><span class="thumb"></span></span>
+        <span class="lbl">Sound</span>
+      </label>
+      <label class="switch">
+        <input type="checkbox" id="night" role="switch">
+        <span class="track"><span class="thumb"></span></span>
+        <span class="lbl">Night mode</span>
+      </label>
+    </div>
 
     <div class="time" id="time" role="timer" aria-live="off">25:00</div>
     <div class="caption" id="caption">Pick a time and start.</div>
@@ -103,6 +172,40 @@
       <button id="main" class="primary">Start</button>
       <button id="reset">Reset</button>
     </div>
+  </section>
+
+  <section class="panel customize" id="customPanel" hidden>
+    <h2>Dress up your beagle</h2>
+    <div class="grp">
+      <span class="gl">Coat</span>
+      <div class="sws" id="coatSw"></div>
+      <div class="pick">
+        <label>Ears <input type="color" id="earInput"></label>
+        <label>Patch <input type="color" id="patchInput"></label>
+      </div>
+    </div>
+    <div class="grid2">
+      <label>Headwear
+        <select id="selHat">
+          <option value="auto">Auto (by theme)</option><option value="none">None</option>
+          <option value="night">Nightcap</option><option value="beanie">Beanie</option>
+          <option value="party">Party hat</option><option value="grad">Graduation cap</option><option value="bow">Bow</option>
+        </select></label>
+      <label>Glasses
+        <select id="selGlasses"><option value="none">None</option><option value="round">Round glasses</option><option value="shades">Sunglasses</option></select></label>
+      <label>Neckwear
+        <select id="selNeck"><option value="none">None</option><option value="scarf">Scarf</option><option value="bowtie">Bow tie</option><option value="collar">Collar &amp; tag</option></select></label>
+      <label>Book
+        <select id="selBook"><option value="on">Show</option><option value="off">Hide</option></select></label>
+      <label>Pillow
+        <select id="selPillow"><option value="night">Night only</option><option value="on">Always</option><option value="off">Never</option></select></label>
+      <label>Blanket
+        <select id="selBlanket"><option value="night">Night only</option><option value="on">Always</option><option value="off">Never</option></select></label>
+    </div>
+    <div class="grp"><span class="gl">Accessory color</span><div class="sws" id="accSw"></div></div>
+    <div class="grp"><span class="gl">Blanket color</span><div class="sws" id="blanketSw"></div></div>
+    <div class="grp"><span class="gl">Book color</span><div class="sws" id="bookSw"></div></div>
+    <button id="resetLook" class="ghost">Reset look</button>
   </section>
 </main>
 <script src="popup.js"></script>
